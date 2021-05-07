@@ -1,0 +1,37 @@
+{
+  "name": "geobot",
+  "version": "1.0.0",
+  "description": "discord bot for geotastic",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "watch": "tsc -p tsconfig.json -w",
+    "test": "mocha -r ts-node/register \"tests/**/*.spec.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduke2k/geobot.git"
+  },
+  "author": "Eduard But",
+  "license": "Apache License 2.0",
+  "bugs": {
+    "url": "https://github.com/eduke2k/geobot/issues"
+  },
+  "homepage": "https://github.com/eduke2k/geobot#readme",
+  "dependencies": {
+    "@types/node": "^15.0.2",
+    "discord.js": "^12.5.3",
+    "dotenv": "^9.0.0",
+    "inversify": "^5.1.1",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.17",
+    "@types/mocha": "^8.2.2",
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^9.1.1"
+  }
+}
