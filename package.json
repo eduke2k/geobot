@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "watch": "tsc -p tsconfig.json -w",
+    "lint": "eslint . --ext .ts,.tsx",
     "test": "mocha -r ts-node/register \"tests/**/*.spec.ts\""
   },
   "repository": {
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/eduke2k/geobot#readme",
   "dependencies": {
     "@types/node": "^15.0.2",
+    "axios": "^0.21.1",
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.0",
     "inversify": "^5.1.1",
@@ -29,8 +31,13 @@
   "devDependencies": {
     "@types/chai": "^4.2.17",
     "@types/mocha": "^8.2.2",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/parser": "^4.22.1",
     "chai": "^4.3.4",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
     "mocha": "^8.4.0",
+    "prettier": "^2.2.1",
     "ts-mockito": "^2.6.1",
     "ts-node": "^9.1.1"
   }
