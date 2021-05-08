@@ -20,7 +20,7 @@ export class Geobot {
   }
 
   public async sendTwitchNotification(stream: TwitchStreamResponseJSON): Promise<void> {
-    const channel = await this.client.channels.fetch('810505858663448607');
+    const channel = await this.client.channels.fetch('840709055151603772');
     if (channel && channel.isText()) {
       channel.send(getTwitchChatMessage(stream));
     }
