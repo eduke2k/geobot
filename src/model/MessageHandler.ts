@@ -18,7 +18,7 @@ export class BotCommandHandler {
     if (message.content.startsWith('!')) {
       switch(message.content) {
         case AllowedCommands.TWITCH: this.postTwitchStreams(message); break;
-        default: this.postUnknownCommand(message);
+        // default: this.postUnknownCommand(message);
       }
     }
   }
