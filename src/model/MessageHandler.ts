@@ -24,7 +24,7 @@ export class BotCommandHandler {
   }
 
   private postUnknownCommand (message: Message): void {
-    // message.channel.send('I don\'t know this comman :[');
+    message.channel.send('I don\'t know this command :(');
   }
 
   private postTwitchStreams (message: Message): void {

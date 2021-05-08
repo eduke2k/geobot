@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as dotenv from 'dotenv';
 const BASE_URL = 'https://api.twitch.tv/kraken/';
 
 export type TwitchStreamsResponseJSON = {
@@ -49,7 +48,7 @@ export class TwitchApi {
       {
         headers: {
           Accept: 'application/vnd.twitchtv.v5+json',
-          'Client-Id': dotenv.config().parsed.TWITCH_CLIENT_ID
+          'Client-Id': process.env.TWITCH_CLIENT_ID || ''
         }
       }
     )).data;

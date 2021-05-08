@@ -1,7 +1,6 @@
 import { Geobot } from './model/Geobot';
-import * as dotenv from 'dotenv';
 
-const bot = new Geobot(dotenv.config().parsed.TOKEN);
+const bot = new Geobot(process.env.TOKEN || '');
 bot.start()
   .then(() => {
     bot.sayHello();
