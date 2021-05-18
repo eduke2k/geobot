@@ -19,7 +19,7 @@ export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): Messag
       url: stream.channel.url,
     },
     thumbnail: {
-      url: stream.preview.medium,
+      url: stream.channel.logo,
     },
     fields: [
       {
@@ -34,7 +34,7 @@ export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): Messag
       }
     ],
     image: {
-      url: stream.channel.video_banner,
+      url: stream.preview.medium,
     }
   };
 }
