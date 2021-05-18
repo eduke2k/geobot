@@ -1,3 +1,4 @@
+import { MessageEmbed, MessageEmbedOptions } from 'discord.js';
 import { TwitchApi, TwitchStreamResponseJSON } from '../api/TwitchApi';
 
 // Defaults to 5min
@@ -5,6 +6,37 @@ const defaultInterval = 0.5 * 60 * 1000;
 
 export function getTwitchChatMessage (stream: TwitchStreamResponseJSON): string {
   return `**${stream.channel.name}** is streaming for **${stream.viewers} viewers**. Say hello: ${stream.channel.url}`;
+}
+
+export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): MessageEmbedOptions {
+  return {
+    color: 0x0099ff,
+    title: stream.channel.status,
+    url: stream.channel.url,
+    author: {
+      name: stream.channel.name,
+      iconURL: stream.channel.logo,
+      url: stream.channel.url,
+    },
+    thumbnail: {
+      url: stream.channel.logo,
+    },
+    fields: [
+      {
+        name: 'Game',
+        value:  stream.channel.game,
+        inline: false
+      },
+      {
+        name: 'Viewers',
+        value: stream.channel.url,
+        inline: false
+      }
+    ],
+    image: {
+      url: stream.channel.video_banner,
+    }
+  };
 }
 
 export type StreamInfo = {

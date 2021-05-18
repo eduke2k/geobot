@@ -1,7 +1,7 @@
 import { Client, Message } from 'discord.js';
 import { TwitchStreamResponseJSON } from '../api/TwitchApi';
 import { BotCommandHandler } from './MessageHandler';
-import { getTwitchChatMessage, TwitchStreamNotifier } from './TwitchStreamNotifier';
+import { getTwitchChatMessage, getTwitchEmbedOptions, TwitchStreamNotifier } from './TwitchStreamNotifier';
 
 export class Geobot {
   private readonly token: string;
@@ -22,7 +22,7 @@ export class Geobot {
   public async sendTwitchNotification(stream: TwitchStreamResponseJSON): Promise<void> {
     const channel = await this.client.channels.fetch('840709055151603772');
     if (channel && channel.isText()) {
-      channel.send(getTwitchChatMessage(stream));
+      channel.send(getTwitchChatMessage(stream), { embed: getTwitchEmbedOptions(stream) });
     }
   }
 
