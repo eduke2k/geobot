@@ -1,11 +1,11 @@
-import { MessageEmbed, MessageEmbedOptions } from 'discord.js';
+import { MessageEmbedOptions } from 'discord.js';
 import { TwitchApi, TwitchStreamResponseJSON } from '../api/TwitchApi';
 
 // Defaults to 5min
 const defaultInterval = 0.5 * 60 * 1000;
 
 export function getTwitchChatMessage (stream: TwitchStreamResponseJSON): string {
-  return `**${stream.channel.name}** is streaming for **${stream.viewers} viewers**. Say hello: ${stream.channel.url}`;
+  return `**${stream.channel.name}** is streaming geotastic! Say hello: ${stream.channel.url}`;
 }
 
 export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): MessageEmbedOptions {
@@ -19,18 +19,18 @@ export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): Messag
       url: stream.channel.url,
     },
     thumbnail: {
-      url: stream.channel.logo,
+      url: stream.preview.medium,
     },
     fields: [
       {
         name: 'Game',
         value:  stream.channel.game,
-        inline: false
+        inline: true
       },
       {
         name: 'Viewers',
-        value: stream.channel.url,
-        inline: false
+        value: stream.viewers,
+        inline: true
       }
     ],
     image: {
