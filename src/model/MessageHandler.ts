@@ -1,9 +1,11 @@
 import { Client, Message } from 'discord.js';
 import { TwitchApi } from '../api/TwitchApi';
+import { SupporterRoles } from './SupporterRoles';
 import { getTwitchChatMessage } from './TwitchStreamNotifier';
 
 enum AllowedCommands {
-  TWITCH = '!twitch'
+  TWITCH = '!twitch',
+  UPDATE_SUPPORTER_ROLE = '!supporterrole'
 }
 
 export class BotCommandHandler {
@@ -16,8 +18,17 @@ export class BotCommandHandler {
   public handle(message: Message): void {
     if (!this.client) return;
     if (message.content.startsWith('!')) {
-      switch(message.content) {
+
+      let command = message.content.substr(0, message.content.indexOf(' '));
+      let parameter = message.content.substr(message.content.indexOf(' ') + 1);
+      if (!command) {
+        command = parameter;
+        parameter = undefined;
+      }
+
+      switch(command) {
         case AllowedCommands.TWITCH: this.postTwitchStreams(message); break;
+        case AllowedCommands.UPDATE_SUPPORTER_ROLE: this.updateSupporterRole(message); break;
         // default: this.postUnknownCommand(message);
       }
     }
@@ -42,4 +53,9 @@ export class BotCommandHandler {
       message.channel.send('I don\'t have a connection to twitch api :(');
     });
   }
+
+  private updateSupporterRole (message: Message): void {
+    SupporterRoles.updateSupporterRole(message, message.mentions.members.first() ?? message.member);
+  }
 }
+
