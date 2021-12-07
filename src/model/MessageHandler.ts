@@ -17,8 +17,7 @@ export class BotCommandHandler {
 
   public handle(message: Message): void {
     if (!this.client) return;
-    if (message.content.startsWith('!')) {
-
+    if (message.channel.id === '917563254832791632' && message.content.startsWith('!')) {
       let command = message.content.substr(0, message.content.indexOf(' '));
       let parameter = message.content.substr(message.content.indexOf(' ') + 1);
       if (!command) {
