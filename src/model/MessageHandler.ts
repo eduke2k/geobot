@@ -1,5 +1,6 @@
 import { Client, Message } from 'discord.js';
 import { TwitchApi } from '../api/TwitchApi';
+import { ALLOWED_CHANNELS } from '../const';
 import { SupporterRoles } from './SupporterRoles';
 import { getTwitchChatMessage } from './TwitchStreamNotifier';
 
@@ -18,7 +19,7 @@ export class BotCommandHandler {
 
   public handle(message: Message): void {
     if (!this.client) return;
-    if (message.channel.id === '917563254832791632' && message.content.startsWith('!')) {
+    if (ALLOWED_CHANNELS.includes(message.channel.id) && message.content.startsWith('!')) {
       let command = message.content.substr(0, message.content.indexOf(' '));
       let parameter = message.content.substr(message.content.indexOf(' ') + 1);
       if (!command) {
