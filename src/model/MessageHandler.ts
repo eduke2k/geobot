@@ -5,6 +5,7 @@ import { getTwitchChatMessage } from './TwitchStreamNotifier';
 
 enum AllowedCommands {
   TWITCH = '!twitch',
+  COMMANDS = '!commands',
   UPDATE_SUPPORTER_ROLE = '!supporterrole'
 }
 
@@ -27,6 +28,7 @@ export class BotCommandHandler {
 
       switch(command) {
         case AllowedCommands.TWITCH: this.postTwitchStreams(message); break;
+        case AllowedCommands.COMMANDS: this.showCommands(message); break;
         case AllowedCommands.UPDATE_SUPPORTER_ROLE: this.updateSupporterRole(message); break;
         // default: this.postUnknownCommand(message);
       }
@@ -51,6 +53,10 @@ export class BotCommandHandler {
     }).catch(() => {
       message.channel.send('I don\'t have a connection to twitch api :(');
     });
+  }
+
+  private showCommands (message: Message): void {
+    message.channel.send('`!supporterrole`: Will automatically assign your discord account the proper supporter role if you have your discord handle attached to your geotastic account.');
   }
 
   private updateSupporterRole (message: Message): void {
