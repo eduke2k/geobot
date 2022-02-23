@@ -1,46 +1,47 @@
 import { MessageEmbedOptions } from 'discord.js';
+import { ApiResponseStatus } from '../api/GeotasticApi';
 import { TwitchApi, TwitchStreamResponseJSON } from '../api/TwitchApi';
 
 // Defaults to 5min
 const defaultInterval = 0.5 * 60 * 1000;
 
 export function getTwitchChatMessage (stream: TwitchStreamResponseJSON): string {
-  return `**${stream.channel.name}** is streaming geotastic! Say hello: ${stream.channel.url}`;
+  return `**${stream.user_name}** is streaming geotastic! Say hello: ${TwitchApi.getChannelUrl(stream)}`;
 }
 
 export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): MessageEmbedOptions {
   return {
     color: 0x0099ff,
-    title: stream.channel.status,
-    url: stream.channel.url,
+    title: stream.title,
+    url: TwitchApi.getChannelUrl(stream),
     author: {
-      name: stream.channel.name,
-      iconURL: stream.channel.logo,
-      url: stream.channel.url,
+      name: stream.user_name,
+      iconURL: stream.user?.profile_image_url,
+      url: TwitchApi.getChannelUrl(stream),
     },
     thumbnail: {
-      url: stream.channel.logo,
+      url: stream.user?.profile_image_url,
     },
     fields: [
       {
         name: 'Game',
-        value:  stream.channel.game,
+        value:  stream.game_name,
         inline: true
       },
       {
         name: 'Viewers',
-        value: stream.viewers,
+        value: stream.viewer_count,
         inline: true
       }
     ],
     image: {
-      url: stream.preview.medium,
+      url:  TwitchApi.getStreamThumbnail(stream, 0.25),
     }
   };
 }
 
 export type StreamInfo = {
-  id: number;
+  id: string;
   added: number;
 }
 
@@ -67,18 +68,20 @@ export class TwitchStreamNotifier {
 
   private checkForStreams (): void {
     TwitchApi.getActiveStreams().then(response => {
-      response.streams.forEach(stream => {
-        const foundIndex = this.loggedStreams.findIndex(s => s.id === stream._id);
-
-        if (foundIndex === -1) {
-          this.loggedStreams.push({
-            id: stream._id,
-            added: new Date().getTime()
-          });
-
-          if (this.callback) this.callback(stream);
-        }
-      });
+      if (response.status === ApiResponseStatus.SUCCESS && response.data) {
+        response.data.forEach(stream => {
+          const foundIndex = this.loggedStreams.findIndex(s => s.id === stream.id);
+  
+          if (foundIndex === -1) {
+            this.loggedStreams.push({
+              id: stream.id,
+              added: new Date().getTime()
+            });
+  
+            if (this.callback) this.callback(stream);
+          }
+        });
+      }
     });
   }
 }

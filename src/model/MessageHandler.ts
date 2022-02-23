@@ -1,4 +1,5 @@
 import { Client, Message } from 'discord.js';
+import { ApiResponseStatus } from '../api/GeotasticApi';
 import { TwitchApi } from '../api/TwitchApi';
 import { ALLOWED_CHANNELS } from '../const';
 import { SupporterRoles } from './SupporterRoles';
@@ -42,16 +43,18 @@ export class BotCommandHandler {
 
   private postTwitchStreams (message: Message): void {
     TwitchApi.getActiveStreams().then(response => {
-      if (response.streams.length === 0) {
-        message.channel.send('There isn\'t anyone streaming geotastic at the moment. Cruel world.');
-      } else {
-        const lines: string[] = [];
-        response.streams.forEach(stream => {
-          lines.push(getTwitchChatMessage(stream));
-        });
-        message.channel.send(lines.join('\n'));
+      if (response.status === ApiResponseStatus.SUCCESS && response.data) {
+        if (response.data.length === 0) {
+          message.channel.send('There isn\'t anyone streaming geotastic at the moment. Cruel world.');
+        } else {
+          const lines: string[] = [];
+          response.data.forEach(stream => {
+            lines.push(getTwitchChatMessage(stream));
+          });
+          message.channel.send(lines.join('\n'));
+        }
       }
-    }).catch(() => {
+    }).catch((e) => {
       message.channel.send('I don\'t have a connection to twitch api :(');
     });
   }

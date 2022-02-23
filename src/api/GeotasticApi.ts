@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 export enum ApiResponseStatus {
   ERROR = 'error',
@@ -15,11 +15,20 @@ enum ApiAction {
   GET_SUPPORTER_LEVEL = 'v1/discord/getSupporterLevel.php',
 }
 
-const baseUrl = 'https://api.geotastic.de';
+export const backendBaseUrl = 'https://api.geotastic.de';
+export const backendToken = '98b3d45a65864197b670fbab01e97b5b';
 
 export class GeotasticApi {
+  public static withAuthHeader (token: string): AxiosRequestConfig {
+    return {
+      headers: {
+        'X-Auth-Token': token
+      }
+    };
+  };
+
   public static async getSupporterLevel(discordTag: string): Promise<ApiResponse<number>> {
-    const url = `${baseUrl}/${ApiAction.GET_SUPPORTER_LEVEL}?tag=${encodeURIComponent(discordTag)}`;
+    const url = `${backendBaseUrl}/${ApiAction.GET_SUPPORTER_LEVEL}?tag=${encodeURIComponent(discordTag)}`;
     const response = await axios.get<ApiResponse<number>>(url);
     return response.data;
   }
