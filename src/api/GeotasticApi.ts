@@ -15,7 +15,7 @@ enum ApiAction {
   GET_SUPPORTER_LEVEL = 'v1/discord/getSupporterLevel.php',
 }
 
-export const backendBaseUrl = 'https://backend01.geotastic.de';
+export const backendBaseUrl = 'https://backend01.geotastic.net';
 export const backendToken = '98b3d45a65864197b670fbab01e97b5b';
 
 export class GeotasticApi {
