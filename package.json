@@ -24,7 +24,7 @@
   "dependencies": {
     "@types/node": "^15.0.2",
     "axios": "^0.21.1",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.7.0",
     "dotenv": "^9.0.0",
     "inversify": "^5.1.1",
     "reflect-metadata": "^0.1.13",

@@ -30,7 +30,7 @@ export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): Messag
       },
       {
         name: 'Viewers',
-        value: stream.viewer_count,
+        value: stream.viewer_count.toString(),
         inline: true
       }
     ],

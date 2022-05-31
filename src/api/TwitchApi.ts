@@ -47,25 +47,6 @@ export type UserByChannelResponse = {
 }
 
 export class TwitchApi {
-  public static mapLanguageToCountry (language: string): string {
-    if (language === 'other') return 'earth';
-    const split = language.split('-');
-    const toCheck = split[1] ?? split[0];
-
-    switch (toCheck) {
-      case 'ja': return 'jp';
-      case 'sv': return 'se';
-      case 'cs': return 'cz';
-      case 'cn': return 'cn';
-      case 'kg': return 'hk';
-      case 'hk': return 'hk';
-      case 'mo': return 'mo';
-      case 'sg': return 'sg';
-      case 'tw': return 'tw';
-      default: return toCheck;
-    }
-  }
-
   public static getChannelUrl (stream: TwitchStreamResponseJSON): string {
     return `https://twitch.tv/${stream.user_name}`;
   }
