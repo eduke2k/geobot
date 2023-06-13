@@ -1,4 +1,4 @@
-import { MessageEmbedOptions } from 'discord.js';
+import { APIEmbed } from 'discord.js';
 import { ApiResponseStatus } from '../api/GeotasticApi';
 import { TwitchApi, TwitchStreamResponseJSON } from '../api/TwitchApi';
 
@@ -9,14 +9,14 @@ export function getTwitchChatMessage (stream: TwitchStreamResponseJSON): string 
   return `**${stream.user_name}** is streaming geotastic! Say hello: ${TwitchApi.getChannelUrl(stream)}`;
 }
 
-export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): MessageEmbedOptions {
+export function getTwitchEmbedOptions (stream: TwitchStreamResponseJSON): APIEmbed {
   return {
     color: 0x0099ff,
     title: stream.title,
     url: TwitchApi.getChannelUrl(stream),
     author: {
       name: stream.user_name,
-      iconURL: stream.user?.profile_image_url,
+      icon_url: stream.user?.profile_image_url,
       url: TwitchApi.getChannelUrl(stream),
     },
     thumbnail: {

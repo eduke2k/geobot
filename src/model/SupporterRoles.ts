@@ -5,7 +5,16 @@ export class SupporterRoles {
   public static updateSupporterRole (message: Message, member: GuildMember): void {
     const sad = message.guild.emojis.cache?.find(emoji => emoji.name === 'sadpotat');
 
-    GeotasticApi.getSupporterLevel(member.user.tag)
+    let username = '';
+    if (member.user.discriminator === '0') {
+      // NEW USERNAME
+      username = member.user.username;
+    } else {
+      // OLD USERNAME
+      username = member.user.tag;
+    }
+
+    GeotasticApi.getSupporterLevel(username)
     .then(r => {
       if (r.status === ApiResponseStatus.SUCCESS && r.data !== undefined) {
         const supporterLevel = r.data;

@@ -10,8 +10,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "types": [
-      "node",
-      "reflect-metadata"
+      "node"
     ],
     "typeRoots": [
       "node_modules/@types"
