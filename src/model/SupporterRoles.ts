@@ -21,14 +21,14 @@ export class SupporterRoles {
         SupporterRoles.updateRoles(message, member, supporterLevel).then(() => {
           SupporterRoles.sendAnswer(message, member, supporterLevel);
         }).catch(e => {
-          message.channel.send(`Could not update supporter role for ${member.user.tag} ${sad} ${e}`);
+          message.channel.send(`Could not update supporter role for ${username} ${sad} ${e}`);
         });
       } else {
-        message.channel.send(`Could not update supporter role for ${member.user.tag} ${sad} ${r.message}`);
+        message.channel.send(`Could not update supporter role for ${username} ${sad} ${r.message}`);
       }
     })
     .catch(e => {
-      message.channel.send(`Could not update supporter role for ${member.user.tag} ${sad}`);
+      message.channel.send(`Could not update supporter role for ${username} ${sad}`);
       console.error(e);
     });
   }
